@@ -1,7 +1,7 @@
 #!/usr/bin/node
 
 const fs = require('fs');
-const request = require ('request');
+const request = require('request');
 
 const url = process.argv[2];
 const filePatch = process.argv[3];
