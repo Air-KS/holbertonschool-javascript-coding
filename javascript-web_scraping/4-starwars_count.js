@@ -22,5 +22,5 @@ request(apiUrl, function (error, response, body) {
       }
     }
   }
-  console.log(count)
+  console.log(count);
 });
