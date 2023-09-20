@@ -1,35 +1,32 @@
 #!/usr/bin/node
-
 const request = require('request');
-
-// Vérifiez si l'URL a été fournie en argument
-if (process.argv.length < 3) {
-    console.error("Veuillez fournir l'URL de l'API comme premier argument.");
-    process.exit(1);
-}
 
 const apiUrl = process.argv[2];
 
 request(apiUrl, (error, response, body) => {
-    if (error) {
-        console.error('Erreur lors de la demande:', error);
-        return;
-    }
+  if (!error && response.statusCode === 200) {
+    const todo = JSON.parse(body);
 
-    const todos = JSON.parse(body);
     const completedTasksByUser = {};
 
-    for (const todo of todos) {
-        if (todo.completed) {
-            if (completedTasksByUser[todo.userId]) {
-                completedTasksByUser[todo.userId]++;
-            } else {
-                completedTasksByUser[todo.userId] = 1;
-            }
+    // Parcourt les tâches dans la réponse JSON.
+    for (const task of todo) {
+      // Vérifie si la tâche est complétée.
+      if (task.completed) {
+        // Obtient l'ID de l'utilisateur de la tâche.
+        const userId = task.userId;
+
+        if (completedTasksByUser[userId]) {
+          completedTasksByUser[userId]++;
+        } else {
+        // user a accompli sa 1er tâche complétée.
+          completedTasksByUser[userId] = 1;
         }
+      }
     }
 
-    for (const userId in completedTasksByUser) {
-        console.log(`L'utilisateur ${userId} a complété ${completedTasksByUser[userId]} tâche(s).`);
-    }
+    console.log(completedTasksByUser);
+  } else {
+    console.error(error || `Code d'état ${response.statusCode}`);
+  }
 });
