@@ -1,5 +1,5 @@
 // Importe le module HTTP
-const http = require("http");
+const http = require('http');
 
 // Crée un serveur HTTP
 const app = http.createServer((req, res) => {
