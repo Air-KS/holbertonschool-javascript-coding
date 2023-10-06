@@ -1,16 +1,14 @@
-// Import the "readline" module
-const readline = require('readline');
+// Affiche le message de bienvenue
+process.stdout.write('Welcome to Holberton School, what is your name?\n');
 
-// Create a readline interface for user interaction
-const rl = readline.createInterface({
-  // Set input source to standard input (keyboard)
-  input: process.stdin,
-  // Set output destination to standard output (console)
-  output: process.stdout
+// Écoute les entrées utilisateur
+process.stdin.on('readable', () => {
+  // Lit l'entrée utilisateur
+  const input = process.stdin.read();
+  if (input !== null) process.stdout.write(`Your name is: ${input}`);
 });
 
-// Prompt the user with a question and handle their response
-rl.question('Welcome to Holberton School, what is your name?\n', (answer) => {
-  console.log(`Your name is: ${answer}`);
-  rl.close();
-})
+// Gère la fin de l'entrée utilisateur
+process.stdin.on('end', () => {
+  process.stdout.write('This important software is now closing\n');
+});
