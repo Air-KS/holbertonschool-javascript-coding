@@ -6,7 +6,7 @@ function countStudents(path) {
     const data = fs.readFileSync(path, 'utf8');
 
     // Diviser le fichier en lignes
-    const lines = data.split('\n').filter(line => line);
+    const lines = data.split('\n').filter((line) => line);
 
     // Supprimer l'en-tête
     lines.shift();
@@ -15,7 +15,7 @@ function countStudents(path) {
 
     // Parcourir chaque ligne pour compter les étudiants par domaine
     for (const line of lines) {
-      const [ , field] = line.split(',');
+      const [, field] = line.split(',');
       if (!fields[field]) {
         fields[field] = [];
       }
