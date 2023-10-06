@@ -11,9 +11,7 @@ const app = http.createServer(async (req, res) => {
   // Gère la route racine
   if (req.url === '/') {
     res.end('Hello Holberton School!');
-  }
-  // Gère la route /students
-  else if (req.url === '/students') {
+  } else if (req.url === '/students') {
     try {
       const messages = [];
       messages.push('This is the list of our students');
